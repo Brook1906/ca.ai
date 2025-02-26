@@ -2,6 +2,7 @@ import os
 import requests
 import pdfplumber
 import json
+import random
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse
 from selenium import webdriver
@@ -20,24 +21,42 @@ os.makedirs(PDF_FOLDER, exist_ok=True)
 def get_edge_driver():
     options = Options()
     options.add_argument("--headless")  # Run in background
-    options.add_argument("--disable-gpu")  
+    options.add_argument("--disable-gpu")
     options.add_argument("--log-level=3")  
-    options.add_argument("--disable-usb-keyboard-detect")  
+    options.add_argument("--disable-usb-keyboard-detect")
+    options.add_argument("--disable-logging")
+    options.add_argument("--disable-blink-features=AutomationControlled")  # Prevent bot detection
+    
     service = Service("C:/Users/bodas/AppData/Local/Programs/Python/Python313/Lib/site-packages/selenium/webdriver/edgedriver_win32/msedgedriver.exe")
-    return webdriver.Edge(service=service, options=options)
+    driver = webdriver.Edge(service=service, options=options)
+    
+    # Increase timeouts to handle slow pages
+    driver.set_page_load_timeout(120)  # 120 seconds max to load a page
+    driver.implicitly_wait(10)  # 10 seconds wait for elements to appear
+    
+    return driver
 
-# Fetch page content using Selenium for JavaScript-heavy pages
-def get_page_content(url):
-    driver = get_edge_driver()
-    driver.get(url)
-    time.sleep(3)  # Allow JavaScript to load
-    page_source = driver.page_source
-    driver.quit()
-    return page_source
+# Fetch page content with retries and random delays
+def get_page_content(url, retries=3):
+    for attempt in range(retries):
+        try:
+            driver = get_edge_driver()
+            driver.get(url)
+            time.sleep(random.uniform(3, 6))  # Add a random delay to avoid detection
+            page_source = driver.page_source
+            driver.quit()
+            return page_source
+        
+        except Exception as e:
+            print(f"⚠️ Attempt {attempt+1} failed for {url}: {e}")
+            time.sleep(5)  # Wait before retrying
+
+    print(f"❌ Failed to load {url} after {retries} attempts.")
+    return None  # Return None instead of stopping the script
 
 # Keep track of visited pages to prevent loops
 visited_urls = set()
-MAX_DEPTH = 10  # Adjust this to limit how deep the scraper goes
+MAX_DEPTH = 20  # Increased max depth to 20
 scraped_data = []
 
 # Function to sanitize filenames
@@ -51,12 +70,15 @@ def scrape_text_and_links(url, base_url, depth=0):
         print(f"⚠️ Reached max depth ({MAX_DEPTH}), stopping recursion.")
         return
 
-    if url in visited_urls or not url.startswith(base_url):
+    if url in visited_urls:
         return
     visited_urls.add(url)
 
     print(f"\n🔍 Scraping (Depth {depth}): {url}")
     page_content = get_page_content(url)
+    if not page_content:
+        return  # Skip if the page failed to load
+    
     soup = BeautifulSoup(page_content, "html.parser")
 
     # Extract and save text
@@ -68,15 +90,18 @@ def scrape_text_and_links(url, base_url, depth=0):
         file.write(text)
     print(f"✅ Saved text: {file_name}")
 
-    # Find and scrape all sub-links (limited depth)
+    # Find sub-links (but avoid revisiting the same structures)
     for link in soup.find_all("a", href=True):
         full_url = urljoin(base_url, link["href"])
-        if base_url in full_url and full_url not in visited_urls:
+        if base_url in full_url and full_url not in visited_urls and "?" not in full_url:
             scrape_text_and_links(full_url, base_url, depth + 1)
 
 # Function to scrape and download PDFs
 def scrape_pdfs(url, base_url):
     page_content = get_page_content(url)
+    if not page_content:
+        return  # Skip if page failed to load
+    
     soup = BeautifulSoup(page_content, "html.parser")
 
     for link in soup.find_all("a", href=True):
