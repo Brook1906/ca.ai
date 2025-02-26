@@ -1,0 +1,122 @@
+{
+  "chartered_accountant": {
+    "roles": [
+      "Financial reporting",
+      "Tax planning and compliance",
+      "Auditing and assurance",
+      "Risk management",
+      "Forensic accounting",
+      "Business advisory services",
+      "Corporate finance advisory",
+      "Internal control and compliance management"
+    ],
+    "qualifications": [
+      "CA from ICAI (India)",
+      "CPA (USA)",
+      "ACCA (UK)",
+      "CFA for finance specialization",
+      "Diploma in IFRS",
+      "Advanced taxation certifications"
+    ],
+    "work_process": [
+      "Client financial assessment",
+      "Preparation and filing of financial statements",
+      "Tax computation and advisory",
+      "Audit planning and execution",
+      "Fraud detection and risk management",
+      "Consulting on mergers and acquisitions",
+      "Providing financial strategy and cost-cutting measures"
+    ]
+  },
+  "auditing": {
+    "types": [
+      "Internal audit",
+      "External audit",
+      "Forensic audit",
+      "Statutory audit",
+      "Tax audit",
+      "Compliance audit",
+      "Performance audit",
+      "IT audit"
+    ],
+    "process": [
+      "Audit planning and risk assessment",
+      "Gathering financial evidence and records",
+      "Verification of financial statements",
+      "Assessment of internal controls",
+      "Detection of fraud and irregularities",
+      "Reporting audit findings and recommendations",
+      "Ensuring regulatory compliance"
+    ],
+    "standards": {
+      "Indian Auditing Standards (ISA)": "Issued by ICAI",
+      "International Standards on Auditing (ISA)": "Issued by IFAC",
+      "Generally Accepted Auditing Standards (GAAS)": "USA-based auditing principles"
+    },
+    "fraud_detection_patterns": [
+      "Unusual revenue growth without cost increase",
+      "Frequent changes in accounting policies",
+      "Inconsistent cash flow statements",
+      "Excessive adjustments in financial reports",
+      "Non-compliance with tax filings"
+    ]
+  },
+  "taxation": {
+    "types": [
+      "Direct tax (Income Tax, Corporate Tax, Capital Gains Tax)",
+      "Indirect tax (GST, VAT, Customs Duty, Excise Duty)",
+      "Property tax and wealth tax",
+      "International taxation and transfer pricing"
+    ],
+    "tax_filing_process": [
+      "Collection of financial documents",
+      "Calculation of taxable income",
+      "Application of tax deductions and exemptions",
+      "Filing tax returns using official forms",
+      "Payment of taxes or claiming tax refunds",
+      "Responding to tax notices and audits"
+    ],
+    "forms": {
+      "individual": "ITR-1 (Salaried Individuals), ITR-2 (Capital Gains), ITR-3 (Business/Profession), ITR-4 (Presumptive Taxation)",
+      "corporate": "ITR-5 (LLPs), ITR-6 (Companies), ITR-7 (Trusts, NGOs)"
+    },
+    "tax_planning_strategies": [
+      "Using Section 80C investments (PPF, ELSS, Life Insurance)",
+      "HRA and Home Loan Interest Deductions",
+      "Tax-saving Fixed Deposits and Bonds",
+      "Retirement planning and pension schemes",
+      "Business expense deductions",
+      "Capital gains tax optimization"
+    ]
+  },
+  "finance": {
+    "fundamentals": [
+      "Assets vs Liabilities",
+      "Income vs Expenses",
+      "Profit and Loss Statement",
+      "Balance Sheet Analysis",
+      "Cash Flow Statement",
+      "Debt Management and Loan Structuring",
+      "Investment and Portfolio Management"
+    ],
+    "financial_ratios": [
+      "Debt-to-Equity Ratio",
+      "Return on Investment (ROI)",
+      "Current Ratio",
+      "Net Profit Margin",
+      "Earnings Per Share (EPS)",
+      "Price-to-Earnings Ratio (P/E)"
+    ],
+    "financial_reporting": {
+      "IFRS": "International Financial Reporting Standards",
+      "GAAP": "Generally Accepted Accounting Principles",
+      "Ind-AS": "Indian Accounting Standards"
+    },
+    "real_world_financial_statements": [
+      "Company annual reports",
+      "Balance sheets from Fortune 500 companies",
+      "Cash flow statements from publicly traded firms",
+      "Financial disclosures from tax filings"
+    ]
+  }
+}
